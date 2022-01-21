@@ -13,4 +13,8 @@ public interface CustomerRepository extends JpaRepository<Customer, UUID> {
     @Query("Select u from Customer u where u.username =  ?1 ")
     Optional<Customer> findByUsername(String username);
 
+    Boolean existsByUsername(String username);
+
+    Boolean existsByEmail(String email);
+
 }

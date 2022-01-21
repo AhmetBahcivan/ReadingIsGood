@@ -20,4 +20,9 @@ public class Order {
     @GeneratedValue(generator = "UUIDGenerator")
     @Column(name = "id", unique = true, updatable = false, nullable = false)
     private UUID id;
+
+
+    @ManyToOne
+    @JoinColumn(name = "fk_customer_id", nullable = false)
+    private Customer owner;
 }

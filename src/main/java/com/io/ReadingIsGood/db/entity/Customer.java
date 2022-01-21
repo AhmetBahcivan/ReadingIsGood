@@ -1,6 +1,7 @@
 package com.io.ReadingIsGood.db.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,6 +18,9 @@ import javax.validation.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @ToString
@@ -60,5 +64,24 @@ public class Customer {
     @NotBlank
     @Size(min = 6, max = 100)
     private String hashedPassword;
+
+    @JsonProperty("joinedOn")
+    private Timestamp joined_on;
+
+    @JsonProperty("lastLogin")
+    private Timestamp last_login;
+
+    @JsonProperty("orderCount")
+    private Integer order_count;
+
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
+    private Set<Order> orders = new HashSet<>();
+
+    public Customer(String username, String email, String hashedPassword) {
+        this.username = username;
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+    }
 
 }
