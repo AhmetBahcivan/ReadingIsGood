@@ -1,24 +1,29 @@
 package com.io.ReadingIsGood.controller;
 
 import com.io.ReadingIsGood.service.CustomerService;
-import com.io.ReadingIsGood.vo.LoginForm;
 import com.io.ReadingIsGood.vo.SignUpForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+@RestController
+@RequestMapping("/customer")
 public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
 
-    @PostMapping("/signUp")
+    @PostMapping("/auth/signUp")
     public ResponseEntity registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request) {
         return customerService.registerUser(signUpRequest, request);
+    }
+
+    @GetMapping("/getAllOrders")
+    public ResponseEntity getAllOrders(int pageNum, int limit) {
+        return customerService.getAllOrdersFromUser(pageNum, limit);
     }
 
     /*

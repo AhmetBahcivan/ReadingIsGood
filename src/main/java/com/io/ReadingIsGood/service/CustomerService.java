@@ -1,14 +1,18 @@
 package com.io.ReadingIsGood.service;
 
 import com.io.ReadingIsGood.db.entity.Customer;
+import com.io.ReadingIsGood.db.entity.Order;
 import com.io.ReadingIsGood.db.repository.CustomerRepository;
+import com.io.ReadingIsGood.db.repository.OrderRepository;
 import com.io.ReadingIsGood.message.JwtResponse;
 import com.io.ReadingIsGood.security.jwt.JwtProvider;
+import com.io.ReadingIsGood.security.services.UserDetailsImpl;
 import com.io.ReadingIsGood.util.OnRegistrationCompleteEvent;
 import com.io.ReadingIsGood.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,6 +38,9 @@ public class CustomerService implements UserDetailsService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -66,11 +73,10 @@ public class CustomerService implements UserDetailsService {
 
         try {
             // Creating user's account
-            Customer user = new Customer(signUpRequest.getUsername(),
+            Customer user = new Customer(signUpRequest.getName(), signUpRequest.getUsername(),
                     signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
 
             customerRepository.save(user);
-
 
             log.info("user: " +user.getUsername() + " is registered succesfully ");
             String appUrl = request.getContextPath();
@@ -123,6 +129,23 @@ public class CustomerService implements UserDetailsService {
         }
     }
 
+    public ResponseEntity<Page<Order>> getAllOrdersFromUser(int pageNum, int limit){
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if ( userDetails == null || !userDetails.isAccountNonExpired()) {
+            log.error("session user not found ");
+            return new ResponseEntity(new GenericResponseErrorItem(new ErrorDetails("user_not_found" ,"session user not found!")), HttpStatus.NOT_FOUND);
+        }
+
+        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "creationDate");
+        List<Sort.Order> orderList = new ArrayList<>();
+        orderList.add(order);
+        Sort sort = Sort.by(orderList);
+        Pageable page = PageRequest.of(pageNum, limit, sort);
+
+        Page<Order> orderPost = orderRepository.findAllByOwnerId(userDetails.getId(), page);
+        return ResponseEntity.ok(orderPost);
+    }
 
     @Override
     @Transactional

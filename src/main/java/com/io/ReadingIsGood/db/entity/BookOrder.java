@@ -1,5 +1,6 @@
 package com.io.ReadingIsGood.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Setter
 @Getter
-@Table(name="bookOrder")
+@Table(name="bookOrder", schema = "public")
 @NoArgsConstructor
 public class BookOrder {
     @Id
@@ -20,4 +21,24 @@ public class BookOrder {
     @GeneratedValue(generator = "UUIDGenerator")
     @Column(name = "id", unique = true, updatable = false, nullable = false)
     private UUID id;
+
+    private int count;
+    private double bookPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "fk_order_id")
+    @JsonIgnore
+    private Order order;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
+
+    public BookOrder (int count, double bookPrice, Book book, Order order) {
+        this.count = count;
+        this.bookPrice = bookPrice;
+        this.book = book;
+        this.order = order;
+    }
+
 }
