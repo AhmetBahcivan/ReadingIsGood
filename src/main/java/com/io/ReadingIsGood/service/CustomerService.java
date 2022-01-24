@@ -87,7 +87,6 @@ public class CustomerService implements UserDetailsService {
             ResponseEntity responseEntity = authenticateUserAutoLogin(new LoginForm(signUpRequest.getUsername(),signUpRequest.getPassword()));
 
             return responseEntity;
-            //return ResponseEntity.ok().body("User registered successfully!");
         }
         catch (Exception e) {
             log.error("register ERROR: " + e.getMessage());

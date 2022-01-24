@@ -12,20 +12,9 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class GenericResponseErrorItem {
-    /*
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    public ErrorItem error2;
 
-
-     */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     public ErrorDetails error;
-
-    /*
-    public  GenericResponseErrorItem(ErrorItem errorItem) {
-        this.error2 = errorItem;
-    }
-     */
 
     public  GenericResponseErrorItem(ErrorDetails errorDetails) {
         this.error = errorDetails;

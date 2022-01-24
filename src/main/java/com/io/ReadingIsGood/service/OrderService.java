@@ -111,31 +111,34 @@ public class OrderService {
         catch (Exception e) {
             log.error("Create Order Error : " + e.toString());
             return new ResponseEntity(new GenericResponseErrorItem(new ErrorDetails("unknown_error" ,e.toString())), HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
-
     }
 
     public ResponseEntity getOrdersByDates(Date startDate, Date endDate) {
-
-        List<Order> orderList = orderRepository.findAllByCreationDateBetween(startDate, endDate);
-        return new ResponseEntity(orderList, HttpStatus.OK);
-
+        try {
+            List<Order> orderList = orderRepository.findAllByCreationDateBetween(startDate, endDate);
+            return new ResponseEntity(orderList, HttpStatus.OK);
+        }
+        catch (Exception e) {
+            log.error("getOrdersByDates Error : " + e.toString());
+            return new ResponseEntity(new GenericResponseErrorItem(new ErrorDetails("unknown_error" ,e.toString())), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public ResponseEntity getMonthlyStatistics() {
-        List<MonthlyStatistic> monthlyStatisticList = orderRepository.getMonthlyOrderStatistic();
-        List<OrderStatisticsItem> orderStatisticsItemList = new ArrayList<>();
-        for(MonthlyStatistic m: monthlyStatisticList) {
-            Integer totalOrderCount = m.totalOrderCount();
-            log.info("totalOrderCount: " + m.totalOrderCount());
-            log.info("totalBookCount: " + m.totalBookCount());
-            log.info("totalPurchasedAmount: " + m.totalPurchasedAmount());
-            log.info("month: " + m.month());
-
-            orderStatisticsItemList.add(new OrderStatisticsItem(m.totalOrderCount(),m.totalBookCount(),m.totalPurchasedAmount(),m.month()));
+        try{
+            List<MonthlyStatistic> monthlyStatisticList = orderRepository.getMonthlyOrderStatistic();
+            List<OrderStatisticsItem> orderStatisticsItemList = new ArrayList<>();
+            for(MonthlyStatistic m: monthlyStatisticList) {
+                orderStatisticsItemList.add(new OrderStatisticsItem(m.getTotalOrderCount(),m.getTotalBookCount(),m.getTotalPurchasedAmount(),m.getMonth().trim()));
+            }
+            return new ResponseEntity(orderStatisticsItemList, HttpStatus.OK);
         }
-        return new ResponseEntity(orderStatisticsItemList, HttpStatus.OK);
+        catch (Exception e) {
+            log.error("getMonthlyStatistics Error : " + e.toString());
+            return new ResponseEntity(new GenericResponseErrorItem(new ErrorDetails("unknown_error" ,e.toString())), HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
     }
 
 }
