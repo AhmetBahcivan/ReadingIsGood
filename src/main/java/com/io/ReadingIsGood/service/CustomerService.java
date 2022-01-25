@@ -55,7 +55,7 @@ public class CustomerService implements UserDetailsService {
     private JwtProvider jwtProvider;
 
     @Transactional
-    public ResponseEntity registerUser(SignUpForm signUpRequest, HttpServletRequest request) {
+    public ResponseEntity registerUser(SignUpForm signUpRequest) {
 
         List<String> existedFields = new ArrayList<>();
 
@@ -79,10 +79,6 @@ public class CustomerService implements UserDetailsService {
             customerRepository.save(user);
 
             log.info("user: " +user.getUsername() + " is registered succesfully ");
-            String appUrl = request.getContextPath();
-
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(user,
-                    request.getLocale(), appUrl));
 
             ResponseEntity responseEntity = authenticateUserAutoLogin(new LoginForm(signUpRequest.getUsername(),signUpRequest.getPassword()));
 

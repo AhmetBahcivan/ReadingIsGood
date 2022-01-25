@@ -17,8 +17,8 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/auth/signUp")
-    public ResponseEntity registerUser(@Valid @RequestBody SignUpForm signUpRequest, HttpServletRequest request) {
-        return customerService.registerUser(signUpRequest, request);
+    public ResponseEntity registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+        return customerService.registerUser(signUpRequest);
     }
 
     @GetMapping("/getAllOrders")

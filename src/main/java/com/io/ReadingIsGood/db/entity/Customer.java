@@ -78,6 +78,14 @@ public class Customer {
     @JsonIgnore
     private Set<Order> orders = new HashSet<>();
 
+    public Customer(String name, String username, String email) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.order_count= 0;
+        this.joined_on = new Timestamp(System.currentTimeMillis());
+    }
+
     public Customer(String name, String username, String email, String hashedPassword) {
         this.name = name;
         this.username = username;
