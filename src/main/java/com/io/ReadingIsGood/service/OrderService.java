@@ -61,6 +61,7 @@ public class OrderService {
     }
 
     @Transactional
+    @Synchronized
     public ResponseEntity createOrder(NewOrderItem newOrderItem) {
 
         try {
@@ -76,9 +77,6 @@ public class OrderService {
                 log.error("session user not found ");
                 return new ResponseEntity(new GenericResponseErrorItem(new ErrorDetails("user_not_found" ,"session user not found!")), HttpStatus.NOT_FOUND);
             }
-
-            customerOpt.get().setOrder_count(customerOpt.get().getOrder_count()+1);
-            customerRepository.save(customerOpt.get());
 
             Order order = new Order();
             order.setOwner(customerOpt.get());
@@ -106,6 +104,10 @@ public class OrderService {
 
             OrderResponseItem orderResponseItem = new OrderResponseItem(newOrder.getId(), customerOpt.get(), bookOrderResponseItemList, order.getTotalPrice(), order.getCreationDate());
 
+            customerOpt.get().setOrder_count(customerOpt.get().getOrder_count()+1);
+            customerRepository.save(customerOpt.get());
+
+            log.info("Customer : " + userDetails.getUsername() + " ordered " + bookOrderResponseItemList.size() + " number of item on " + order.getCreationDate());
             return new ResponseEntity(orderResponseItem,HttpStatus.OK);
         }
         catch (Exception e) {

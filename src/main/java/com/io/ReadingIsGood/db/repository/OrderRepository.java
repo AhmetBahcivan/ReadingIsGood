@@ -26,6 +26,5 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
 
     @Query(value="select count(o) as \"totalOrderCount\", sum(bo.count) as \"totalBookCount\", sum(o.totalprice) as \"totalPurchasedAmount\", TO_CHAR(o.creationdate, 'Month') as \"month\" from public.order o, bookorder bo where bo.fk_order_id = o.id group by TO_CHAR(o.creationdate, 'Month')", nativeQuery = true)
     List<MonthlyStatistic> getMonthlyOrderStatistic();
-    //@Query(value="select count(o) as \"Total Order Count\", sum(bo.count) as \"Total Book Count\", sum(o.totalprice) as \"Total Purchased Amount\", TO_CHAR(o.creationdate, 'Month') AS \"Month\" from public.order o, bookorder bo where bo.fk_order_id = o.id group by TO_CHAR(o.creationdate, 'Month')", nativeQuery = true)
 
 }

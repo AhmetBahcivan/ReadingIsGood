@@ -28,7 +28,7 @@ public class BookService {
         try {
             Book book = new Book(null, bookItem.getName(), bookItem.getDescription(), bookItem.getPageCount(), bookItem.getAuthorName(), bookItem.getAvailableCount(), bookItem.getPrice(), null, new Timestamp(System.currentTimeMillis()), null);
             bookRepository.save(book);
-            log.info("book is created. Name: " + book.getName() );
+            log.info("book is created. Name: " + book.getName());
             return new ResponseEntity(book,HttpStatus.OK);
         }
         catch (Exception e) {

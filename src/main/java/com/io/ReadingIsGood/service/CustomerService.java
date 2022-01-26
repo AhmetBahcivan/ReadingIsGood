@@ -78,7 +78,6 @@ public class CustomerService implements UserDetailsService {
 
             customerRepository.save(user);
 
-            log.info("user: " +user.getUsername() + " is registered succesfully ");
 
             ResponseEntity responseEntity = authenticateUserAutoLogin(new LoginForm(signUpRequest.getUsername(),signUpRequest.getPassword()));
 
@@ -111,6 +110,9 @@ public class CustomerService implements UserDetailsService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtProvider.generateJwtToken(user.get());
             JwtResponse jwtResponse = new JwtResponse(jwt, user.get());
+
+            log.info("user: " +user.get().getUsername() + " is registered succesfully ");
+
             return ResponseEntity.ok(jwtResponse);
 
         }
