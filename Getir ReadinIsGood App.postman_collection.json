@@ -1,0 +1,352 @@
+{
+	"info": {
+		"_postman_id": "a3eba4d5-eb2a-4c04-9a13-2bb7d02ead55",
+		"name": "Getir ReadinIsGood App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "all orders from customer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaG1ldF9jIiwidXNlcklkIjoiYjlkYmRiNmUtNzg0Ni00MzYzLThkODktZDI4OTVlZjRmMWNmIiwiZW1haWwiOiJhaG1ldGJhaGNpdmFuQGhveXltYWlsLmNvbSIsImlhdCI6MTY0Mjk0MTUyOSwiZXhwIjoxNjQzODA1NTI5fQ.-ez2VgGIHVEb0fQPd1uUzMiIbUVC5RG5ZEXO1sUuRq5DtcOp8N6F2h8-Na0NoSgUgBYhqozJMHHojjIZP6zf4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/customer/getAllOrders?pageNum=0&limit=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"getAllOrders"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ahmet\",\n    \"email\": \"ahmetbahcivan@hotmail.com\",\n    \"password\": \"123467\",\n    \"username\": \"ahmetbahcivan\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/customer/auth/signUp",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"customer",
+								"auth",
+								"signUp"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "update stock",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaG1ldGJhIiwidXNlcklkIjoiMzBiODJkY2YtNDU3ZS00ZDQ0LWI2MTQtOGY5ZDc3NTE2MzY3IiwiZW1haWwiOiJhaG1ldGJhaGNpdmFuQHlva21haWwuY29tIiwiaWF0IjoxNjQyMTY1OTEwLCJleHAiOjE2NDMwMjk5MTB9.3BSh7S117Hxdhh6avP8rrD6TBgEwUas6Ls06iaFmXr9ode9SlAnpGbUwbI5xc5fV8l7sjicp_Xn21lX-vrq3TA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/book/updateStock?UUID=88ff0b6e-785b-4aaa-bd89-039fee6c8d3f&purchasedCount=9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"book",
+								"updateStock"
+							],
+							"query": [
+								{
+									"key": "UUID",
+									"value": "88ff0b6e-785b-4aaa-bd89-039fee6c8d3f"
+								},
+								{
+									"key": "purchasedCount",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaG1ldGJhIiwidXNlcklkIjoiMzBiODJkY2YtNDU3ZS00ZDQ0LWI2MTQtOGY5ZDc3NTE2MzY3IiwiZW1haWwiOiJhaG1ldGJhaGNpdmFuQHlva21haWwuY29tIiwiaWF0IjoxNjQyMTY1OTEwLCJleHAiOjE2NDMwMjk5MTB9.3BSh7S117Hxdhh6avP8rrD6TBgEwUas6Ls06iaFmXr9ode9SlAnpGbUwbI5xc5fV8l7sjicp_Xn21lX-vrq3TA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":\"\",\n    \"name\":\"bbc learnin english 1\",\n    \"description\":\"bbc learnin english part 1\",\n    \"pageCount\":\"25\",\n    \"authorName\":\"bbc\",\n    \"availableCount\":\"20\",\n    \"price\":\"40\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/book/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"book",
+								"create"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "asdasdasdasdasdasdasd",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "bbc learnin english",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "bbc learnin english part 1 -2 ",
+									"disabled": true
+								},
+								{
+									"key": "pageCount",
+									"value": "45",
+									"disabled": true
+								},
+								{
+									"key": "authorName",
+									"value": "bbc",
+									"disabled": true
+								},
+								{
+									"key": "availableCount",
+									"value": "15",
+									"disabled": true
+								},
+								{
+									"key": "price",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "create order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaG1ldF9jIiwidXNlcklkIjoiYjlkYmRiNmUtNzg0Ni00MzYzLThkODktZDI4OTVlZjRmMWNmIiwiZW1haWwiOiJhaG1ldGJhaGNpdmFuQGhveXltYWlsLmNvbSIsImlhdCI6MTY0Mjk0MTUyOSwiZXhwIjoxNjQzODA1NTI5fQ.-ez2VgGIHVEb0fQPd1uUzMiIbUVC5RG5ZEXO1sUuRq5DtcOp8N6F2h8-Na0NoSgUgBYhqozJMHHojjIZP6zf4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orderItemList\": [\n        {\n            \"bookId\":\"423c9176-f231-44a9-ae39-dbd4a985affb\",\n            \"count\":\"2\"\n        },{\n            \"bookId\":\"1eb3eb7b-77d6-4c85-a630-003be8383ea2\",\n            \"count\":\"1\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/order/create",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaG1ldF9jIiwidXNlcklkIjoiYjlkYmRiNmUtNzg0Ni00MzYzLThkODktZDI4OTVlZjRmMWNmIiwiZW1haWwiOiJhaG1ldGJhaGNpdmFuQGhveXltYWlsLmNvbSIsImlhdCI6MTY0Mjk0MTUyOSwiZXhwIjoxNjQzODA1NTI5fQ.-ez2VgGIHVEb0fQPd1uUzMiIbUVC5RG5ZEXO1sUuRq5DtcOp8N6F2h8-Na0NoSgUgBYhqozJMHHojjIZP6zf4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/order/getById?orderId=b50c994b-7722-409f-8219-04fa1e847255",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"getById"
+							],
+							"query": [
+								{
+									"key": "orderId",
+									"value": "b50c994b-7722-409f-8219-04fa1e847255"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get by dates",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaG1ldF9jIiwidXNlcklkIjoiYjlkYmRiNmUtNzg0Ni00MzYzLThkODktZDI4OTVlZjRmMWNmIiwiZW1haWwiOiJhaG1ldGJhaGNpdmFuQGhveXltYWlsLmNvbSIsImlhdCI6MTY0Mjk0MTUyOSwiZXhwIjoxNjQzODA1NTI5fQ.-ez2VgGIHVEb0fQPd1uUzMiIbUVC5RG5ZEXO1sUuRq5DtcOp8N6F2h8-Na0NoSgUgBYhqozJMHHojjIZP6zf4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/order/getByDates?startDate=23-01-2022 18:01&endDate=23-01-2023 19:01",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"order",
+								"getByDates"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "23-01-2022 18:01"
+								},
+								{
+									"key": "endDate",
+									"value": "23-01-2023 19:01"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Statistic",
+			"item": [
+				{
+					"name": "get monthly order statistics",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhaG1ldF9jIiwidXNlcklkIjoiYjlkYmRiNmUtNzg0Ni00MzYzLThkODktZDI4OTVlZjRmMWNmIiwiZW1haWwiOiJhaG1ldGJhaGNpdmFuQGhveXltYWlsLmNvbSIsImlhdCI6MTY0Mjk0MTUyOSwiZXhwIjoxNjQzODA1NTI5fQ.-ez2VgGIHVEb0fQPd1uUzMiIbUVC5RG5ZEXO1sUuRq5DtcOp8N6F2h8-Na0NoSgUgBYhqozJMHHojjIZP6zf4w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/statistic/getMonthlyOrders",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"statistic",
+								"getMonthlyOrders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
